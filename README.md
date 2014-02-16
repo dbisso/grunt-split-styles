@@ -35,7 +35,7 @@ Type: `String`
 The new CSS file to copy the matching rulesets to.
 
 #### options.remove
-Type: `Boolian`
+Type: `Boolean`
 Default value: `true`
 
 Whether or not to remove the matching rulesets from the original stylesheet.
