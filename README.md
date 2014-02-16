@@ -2,6 +2,10 @@
 
 > Split a CSS file based on selectors. Useful for old IE stylesheets.
 
+## Credit
+
+Uses the excellent [PostCSS](https://github.com/ai/postcss) for the actual CSS post-processing.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.2`
 
