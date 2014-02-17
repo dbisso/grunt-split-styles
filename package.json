@@ -1,8 +1,8 @@
 {
   "name": "grunt-split-styles",
-  "description": "Split a CSS file based on selectors. Useful of old IE stylesheets",
-  "version": "0.1.0",
-  "homepage": "",
+  "description": "Split a CSS file based on selectors. Useful for old IE stylesheets",
+  "version": "0.1.1",
+  "homepage": "https://github.com/dbisso/grunt-split-style",
   "author": {
     "name": "Dan Bissonnet",
     "email": "dan@danisadesigner.com",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@bitbucket.org/dbisso/grunt-split-styles.git"
+    "url": "https://github.com/dbisso/grunt-split-styles.git"
   },
   "bugs": {
     "url": ""
@@ -37,7 +37,10 @@
     "grunt": "~0.4.2"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "css",
+    "postprocessor",
+    "extract"
   ],
   "dependencies": {
     "postcss": "~0.3.0"
