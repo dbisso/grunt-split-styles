@@ -43,6 +43,6 @@
     "extract"
   ],
   "dependencies": {
-    "postcss": "~0.3.0"
+    "postcss": "~0.3.*"
   }
 }
