@@ -9,16 +9,13 @@
 var postcss = require('postcss');
 
 module.exports = function(grunt) {
-
-
 	grunt.registerMultiTask('split_styles', 'Split a CSS file based on selectors. Useful of old IE stylesheets', function() {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
 			separator: '', // do we need this?
 			pattern: false, // The RegExp to match selectors with
 			remove: true, // Should we strip the matched rules from the src style sheet?
-			mediaPattern: false, // RegExp to match @media rules with
-			sourceMap: false
+			mediaPattern: false // RegExp to match @media rules with
 		});
 
 		var newCSS = postcss.root();
@@ -26,7 +23,7 @@ module.exports = function(grunt) {
 		// creation: http://gruntjs.com/creating-tasks
 
 		// Our postCSS processor
-		var contenter = postcss(function (css) {
+		var processor = postcss(function (css) {
 			if ( options.pattern ) {
 				css.eachRule(function (rule) {
 						if ( rule.selector.match(options.pattern) ) {
@@ -65,23 +62,19 @@ module.exports = function(grunt) {
 				}
 			}).map(function(filepath) {
 				// Read file source.
-				grunt.log.warn(filepath);
 				var css =  grunt.file.read(filepath),
 						processOptions = {},
 						output;
 
-				if ( options.sourceMap ) {
-					grunt.log.write(typeof options.sourceMap);
-					processOptions.map = grunt.file.read( options.sourceMap );
-					processOptions.from = filepath;
-					processOptions.to = f.dest;
-				}
+				processOptions.from = filepath;
+				processOptions.to = f.dest;
 
 				// Run the postprocessor
-				output = contenter.process(css, processOptions);
+				output = processor.process(css, processOptions);
 
 				if ( output.map.length > 0 ) {
-					grunt.file.write(options.sourceMap, output.map);
+					grunt.log.writeln('Sourcemap "' + options.output + '" created.');
+					grunt.file.write( f.dest + '.map' , output.map);
 				}
 
 				return output.css;
