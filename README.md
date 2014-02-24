@@ -29,9 +29,14 @@ In your project's Gruntfile, add a section named `split_styles` to the data obje
 ### Options
 
 #### options.pattern
-Type: `RegExp`
+Type: `String`
 
-Selectors matching this regular expression will be added to the output file.
+The string should be a valid regular expression. Selectors matching this regular expression will be added to the output file.
+Escape regular expression using double backslashes:
+
+e.g `/\.ie[6|7|8]/` should be input as `'\\.ie[6|7|8]'`
+
+http://stackoverflow.com/questions/17597238/escaping-regex-to-get-valid-json
 
 #### options.output
 Type: `String`
@@ -45,9 +50,10 @@ Default value: `true`
 Whether or not to remove the matching rulesets from the original stylesheet.
 
 #### options.mediaPattern
-Type: `RegExp`
+Type: `String`
 
 `@media` rulesets matching this regular expression will be copied into the new stylesheet
+http://stackoverflow.com/questions/17597238/escaping-regex-to-get-valid-json
 
 
 ### Usage Examples
@@ -63,7 +69,7 @@ grunt.initConfig({
   split_styles: {
     ie: {
       options: {
-        pattern: /\.ie[6|7|8]/,
+        pattern: '\\.ie[6|7|8]',
         output: 'style-ie.css'
       },
       files: {
@@ -79,4 +85,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+ * 2014-02-24   v0.2.0   String based regular expressions for valid JSON.
