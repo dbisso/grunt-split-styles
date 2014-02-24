@@ -25,24 +25,23 @@ module.exports = function(grunt) {
 		// Our postCSS processor
 		var processor = postcss(function (css) {
 			if ( options.pattern ) {
+				var pattern = new RegExp(options.pattern);
 				css.eachRule(function (rule) {
-						if ( rule.selector.match(options.pattern) ) {
-								if ( options.remove ) {
-									rule.removeSelf();
-								}
-								newCSS.append(rule);
+					if ( rule.selector.match(options.pattern) ) {
+						if ( options.remove ) {
+							rule.removeSelf();
 						}
+						newCSS.append(rule);
+					}
 				});
 			}
-
 			if (options.mediaPattern) {
+				var mediaPattern = new RegExp(options.mediaPattern);
 				css.eachAtRule(function (atRule) {
-					if ( 'media' === atRule.name && atRule.params.match(options.mediaPattern) ) {
-
+					if ( 'media' === atRule.name && atRule.params.match(mediaPattern) ) {
 						if ( options.remove ) {
 							atRule.removeSelf();
 						}
-
 						newCSS.append(atRule);
 					}
 				});
@@ -63,8 +62,8 @@ module.exports = function(grunt) {
 			}).map(function(filepath) {
 				// Read file source.
 				var css =  grunt.file.read(filepath),
-						processOptions = {},
-						output;
+					processOptions = {},
+					output;
 
 				processOptions.from = filepath;
 				processOptions.to = f.dest;
@@ -78,6 +77,7 @@ module.exports = function(grunt) {
 				}
 
 				return output.css;
+
 			}).join(grunt.util.normalizelf(options.separator));
 
 			// Write the newly split file.
