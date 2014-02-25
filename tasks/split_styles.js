@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 	grunt.registerMultiTask('split_styles', 'Split a CSS file based on selectors. Useful of old IE stylesheets', function() {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
-			separator: '', // do we need this?
 			pattern: false, // The RegExp to match selectors with
 			remove: true, // Should we strip the matched rules from the src style sheet?
 			mediaPattern: false // RegExp to match @media rules with
@@ -78,7 +77,7 @@ module.exports = function(grunt) {
 				}
 
 				return output.css;
-			}).join(grunt.util.normalizelf(options.separator));
+			});
 
 			// Write the newly split file.
 			grunt.file.write(options.output, newCSS);
