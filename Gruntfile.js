@@ -39,6 +39,17 @@ module.exports = function(grunt) {
           'tmp/ie8_styles/remaining.css': 'test/fixtures/with-ie8-styles.css'
         }
       },
+      ie8_styles_pattern_object: {
+        options: {
+          pattern: {
+            match: /\.ie8/
+          },
+          output: 'tmp/ie8_styles_pattern_object/extracted.css',
+        },
+        files: {
+          'tmp/ie8_styles_pattern_object/remaining.css': 'test/fixtures/with-ie8-styles.css'
+        }
+      },
       ie8_styles_dont_remove: {
         options: {
           pattern: /\.ie8/,

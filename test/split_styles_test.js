@@ -42,6 +42,21 @@ exports.split_styles = {
 
     test.done();
   },
+  ie8_styles_pattern_object: function(test) {
+    test.expect(2);
+
+    var actualExtracted = grunt.file.read('tmp/ie8_styles_pattern_object/extracted.css').trim();
+    var actualRemaining = grunt.file.read('tmp/ie8_styles_pattern_object/remaining.css').trim();
+
+    var expectedExtracted = grunt.file.read('test/expected/ie8-styles.css').trim();
+    var expectedRemaining = grunt.file.read('test/expected/without-ie8-styles.css').trim();
+
+    test.equal(actualExtracted, expectedExtracted, 'should create a file with only styles starting with .ie8.');
+    test.equal(actualRemaining, expectedRemaining, 'should remove styles starting with .ie8.');
+
+
+    test.done();
+  },
   ie8_styles_dont_remove: function(test) {
     test.expect(2);
 
