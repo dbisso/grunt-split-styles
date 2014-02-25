@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 		});
 
 		var pattern = {};
+		var newCSS = postcss.root();
 
 		if ( options.pattern instanceof RegExp ) {
 			pattern.match = options.pattern;
@@ -30,7 +31,6 @@ module.exports = function(grunt) {
 			pattern = options.pattern;
 		}
 
-		var newCSS = postcss.root();
 		// Please see the Grunt documentation for more information regarding task
 		// creation: http://gruntjs.com/creating-tasks
 
