@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 				// Run the postprocessor
 				output = processor.process(css, processOptions);
 
-				if ( output.map.length > 0 ) {
+				if ( output.map && output.map.length > 0 ) {
 					grunt.log.writeln('Sourcemap "' + options.output + '" created.');
 					grunt.file.write( f.dest + '.map' , output.map);
 				}
