@@ -1,0 +1,7 @@
+.some-class {
+	color: red;
+}
+
+.ie8 .some-class {
+	color: blue;
+}

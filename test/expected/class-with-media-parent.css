@@ -1,0 +1,5 @@
+@media screen (min-width: 40em) {
+	.a-class {
+		color: red;
+	}
+}
