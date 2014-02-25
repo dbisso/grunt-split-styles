@@ -1,6 +1,6 @@
 # grunt-split-styles
 
-> Split a CSS file based on selectors. Useful for old IE stylesheets.
+> Split a CSS file based on selectors. Useful for building old IE stylesheets for example.
 
 ## Credit
 
@@ -29,9 +29,53 @@ In your project's Gruntfile, add a section named `split_styles` to the data obje
 ### Options
 
 #### options.pattern
+Type: `RegExp|Object`
+
+If a RegExp is specified then selectors matching this regular expression will be added to the output file.
+
+Alternatively you can specify an object:
+
+```js
+pattern: {
+  match: /\.ie8/, // Required. See option.pattern.match below.
+  matchParent: false // Optional. See options.pattern.matchParent below.
+}
+```
+
+#### options.pattern.match
 Type: `RegExp`
 
-Selectors matching this regular expression will be added to the output file.
+If a RegExp then selectors matching this regular expression will be added to the output file.
+
+#### options.pattern.matchParent
+Type: `Boolean`  
+Default: `false`
+
+If `true` then a declaration's parent media node will be matched along with the declaration itself.
+
+For example when matching a pattern such as `/^\.rtl/` against the following:
+
+```css
+@media screen and (min-width: 50em) {
+    .rtl .thing {
+        color: red;
+    }
+
+   .another .thing {
+        color: blue;
+    }
+}
+```
+
+Yields:
+
+```css
+@media screen and (min-width: 50em) {
+    .rtl .thing {
+        color: red;
+    }
+}
+```
 
 #### options.output
 Type: `String`
@@ -39,7 +83,7 @@ Type: `String`
 The new CSS file to copy the matching rulesets to.
 
 #### options.remove
-Type: `Boolean`
+Type: `Boolean`  
 Default value: `true`
 
 Whether or not to remove the matching rulesets from the original stylesheet.
@@ -49,6 +93,47 @@ Type: `RegExp`
 
 `@media` rulesets matching this regular expression will be copied into the new stylesheet
 
+#### options.mediaPatternUnwrap
+Type: `Boolean`  
+Default value: `false`
+
+If `true`, only the child declarations of a matched `@media` rule will be extracted.
+
+For example if your options are:
+
+```js
+options: {
+  output: 'media-children.css',
+  mediaPattern: /min-width: (\d+)em/,
+  mediaPatternUnwrap: true
+}
+```
+
+And you apply it to the following:
+
+```css
+@media screen and (min-width: 50em) {
+    .rtl .thing {
+        color: red;
+    }
+
+   .another .thing {
+        color: blue;
+    }
+}
+```
+
+will extract:
+
+```css
+.rtl .thing {
+    color: red;
+}
+
+.another .thing {
+    color: blue;
+}
+```
 
 ### Usage Examples
 
@@ -79,4 +164,10 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+
+* 2014-02-25 v0.2.0
+    * Add option to match parent nodes of declarations.
+    * Add option to unwrap declarations of matched @media nodes.
+    * Add some basic tests.
+
+* 2014-02-16 v0.1.0 Initial Release.
