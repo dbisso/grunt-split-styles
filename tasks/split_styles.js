@@ -9,7 +9,7 @@
 var postcss = require('postcss');
 
 module.exports = function(grunt) {
-	grunt.registerMultiTask('split_styles', 'Split a CSS file based on selectors. Useful of old IE stylesheets', function() {
+	grunt.registerMultiTask('split_styles', 'Split a CSS file based on selectors.', function() {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
 			pattern: {
