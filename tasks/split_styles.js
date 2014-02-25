@@ -12,11 +12,23 @@ module.exports = function(grunt) {
 	grunt.registerMultiTask('split_styles', 'Split a CSS file based on selectors. Useful of old IE stylesheets', function() {
 		// Merge task-specific and/or target-specific options with these defaults.
 		var options = this.options({
-			pattern: false, // The RegExp to match selectors with
+			pattern: {
+				match: false, // The RegExp to match selectors with
+				matchParent: false // Should child declarations (eg. in @media blocks) include their parent node.
+			},
 			remove: true, // Should we strip the matched rules from the src style sheet?
 			mediaPattern: false, // RegExp to match @media rules with
 			mediaPatternUnwrap: false, // Extract the rules from a matched @media block
 		});
+
+		var pattern = {};
+
+		if ( options.pattern instanceof RegExp ) {
+			pattern.match = options.pattern;
+			pattern.matchParent = false;
+		} else {
+			pattern = options.pattern;
+		}
 
 		var newCSS = postcss.root();
 		// Please see the Grunt documentation for more information regarding task
@@ -24,13 +36,29 @@ module.exports = function(grunt) {
 
 		// Our postCSS processor
 		var processor = postcss(function (css) {
-			if ( options.pattern ) {
+			if ( pattern.match ) {
 				css.eachRule(function (rule) {
-						if ( rule.selector.match(options.pattern) ) {
+						var parent;
+
+						if ( rule.selector.match(pattern.match) ) {
 								if ( options.remove ) {
 									rule.removeSelf();
 								}
-								newCSS.append(rule);
+
+								if ( pattern.matchParent ) {
+									parent = rule.parent.clone();
+
+									if ( 'media' === parent.name ) {
+										parent.eachRule(function (childRule) {
+											childRule.removeSelf();
+										});
+
+										parent.append(rule);
+										newCSS.append(parent);
+									}
+								} else {
+									newCSS.append(rule);
+								}
 						}
 				});
 			}
