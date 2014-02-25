@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 		var options = this.options({
 			pattern: false, // The RegExp to match selectors with
 			remove: true, // Should we strip the matched rules from the src style sheet?
-			mediaPattern: false // RegExp to match @media rules with
+			mediaPattern: false, // RegExp to match @media rules with
+			mediaPatternUnwrap: false, // Extract the rules from a matched @media block
 		});
 
 		var newCSS = postcss.root();
@@ -42,7 +43,13 @@ module.exports = function(grunt) {
 							atRule.removeSelf();
 						}
 
-						newCSS.append(atRule);
+						if ( options.mediaPatternUnwrap ) {
+							atRule.eachRule(function (rule) {
+								newCSS.append(rule);
+							});
+						} else {
+							newCSS.append(atRule);
+						}
 					}
 				});
 			}
