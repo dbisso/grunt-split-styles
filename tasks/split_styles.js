@@ -52,6 +52,8 @@ module.exports = function(grunt) {
 
 										parent.append(rule);
 										newCSS.append(parent);
+									} else {
+										newCSS.append(rule);
 									}
 								} else {
 									newCSS.append(rule);
@@ -102,7 +104,7 @@ module.exports = function(grunt) {
 				// Run the postprocessor
 				output = processor.process(css, processOptions);
 
-				if ( output.map && output.map.length > 0 ) {
+				if ( options.output && output.map && output.map.length > 0 ) {
 					grunt.log.writeln('Sourcemap "' + options.output + '" created.');
 					grunt.file.write( f.dest + '.map' , output.map);
 				}
@@ -111,13 +113,17 @@ module.exports = function(grunt) {
 			});
 
 			// Write the newly split file.
-			grunt.file.write(options.output, newCSS);
+			if(options.output) {
+				grunt.file.write(options.output, newCSS);
+			}
 
 			// Write the destination file
 			grunt.file.write(f.dest, src);
 
 			// Print a success message.
-			grunt.log.writeln('File "' + options.output + '" created.');
+			if(options.output) {
+				grunt.log.writeln('File "' + options.output + '" created.');
+			}
 			grunt.log.writeln('File "' + f.dest + '" created.');
 		});
 	});
