@@ -166,8 +166,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 
 * 2014-02-26 v0.3.0
-    * Made 'output' optional (default false).
-    * Fixed 'matchParent' option ignoring rules without parent.
+    * Made 'output' optional (default false). Props @spacedawwwg.
+    * Fixed 'matchParent' option ignoring rules without parent. Props @spacedawwwg.
 
 * 2014-02-25 v0.2.0
     * Add option to match parent nodes of declarations.
