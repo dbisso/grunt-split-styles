@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 			remove: true, // Should we strip the matched rules from the src style sheet?
 			mediaPattern: false, // RegExp to match @media rules with
 			mediaPatternUnwrap: false, // Extract the rules from a matched @media block
+			output: false // output file 'false' by default
 		});
 
 		var pattern = {};
@@ -36,28 +37,25 @@ module.exports = function(grunt) {
 			if ( pattern.match ) {
 				css.eachRule(function (rule) {
 						var parent;
-
 						if ( rule.selector.match(pattern.match) ) {
-								if ( options.remove ) {
-									rule.removeSelf();
-								}
+							if ( options.remove ) {
+								rule.removeSelf();
+							}
+							if ( pattern.matchParent ) {
+								parent = rule.parent.clone();
 
-								if ( pattern.matchParent ) {
-									parent = rule.parent.clone();
-
-									if ( 'media' === parent.name ) {
-										parent.eachRule(function (childRule) {
-											childRule.removeSelf();
-										});
-
-										parent.append(rule);
-										newCSS.append(parent);
-									} else {
-										newCSS.append(rule);
-									}
+								if ( 'media' === parent.name ) {
+									parent.eachRule(function (childRule) {
+										childRule.removeSelf();
+									});
+									parent.append(rule);
+									newCSS.append(parent);
 								} else {
 									newCSS.append(rule);
 								}
+							} else {
+								newCSS.append(rule);
+							}
 						}
 				});
 			}
@@ -65,11 +63,9 @@ module.exports = function(grunt) {
 			if (options.mediaPattern) {
 				css.eachAtRule(function (atRule) {
 					if ( 'media' === atRule.name && atRule.params.match(options.mediaPattern) ) {
-
 						if ( options.remove ) {
 							atRule.removeSelf();
 						}
-
 						if ( options.mediaPatternUnwrap ) {
 							atRule.eachRule(function (rule) {
 								newCSS.append(rule);
