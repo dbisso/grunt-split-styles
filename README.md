@@ -48,7 +48,7 @@ Type: `RegExp`
 If a RegExp then selectors matching this regular expression will be added to the output file.
 
 #### options.pattern.matchParent
-Type: `Boolean`  
+Type: `Boolean`
 Default: `false`
 
 If `true` then a declaration's parent media node will be matched along with the declaration itself.
@@ -80,10 +80,10 @@ Yields:
 #### options.output
 Type: `String`
 
-The new CSS file to copy the matching rulesets to.
+Optional new CSS file to copy the matching rulesets to.
 
 #### options.remove
-Type: `Boolean`  
+Type: `Boolean`
 Default value: `true`
 
 Whether or not to remove the matching rulesets from the original stylesheet.
@@ -94,7 +94,7 @@ Type: `RegExp`
 `@media` rulesets matching this regular expression will be copied into the new stylesheet
 
 #### options.mediaPatternUnwrap
-Type: `Boolean`  
+Type: `Boolean`
 Default value: `false`
 
 If `true`, only the child declarations of a matched `@media` rule will be extracted.
@@ -154,8 +154,8 @@ grunt.initConfig({
       files: {
         '<%= pkg.theme.path %>/style.css': '<%= pkg.theme.path %>/style.css'
       }
-    },
-  },
+    }
+  }
 });
 ```
 
@@ -164,6 +164,10 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+
+* 2014-02-26 v0.3.0
+    * Made 'output' optional (default false).
+    * Fixed 'matchParent' option ignoring rules without parent.
 
 * 2014-02-25 v0.2.0
     * Add option to match parent nodes of declarations.
