@@ -1,0 +1,21 @@
+@media screen (min-width: 40em) {
+	.a-class {
+		color: red;
+	}
+}
+
+@media screen (min-width: 50em) {
+	.another-class-1{
+		color: blue;
+	}
+}
+
+@media screen (min-width: 320px) {
+	.another-class-2 {
+		color: green;
+	}
+}
+
+.a-class {
+	color: yellow;
+}

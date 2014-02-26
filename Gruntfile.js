@@ -60,6 +60,15 @@ module.exports = function(grunt) {
           'tmp/ie8_styles_dont_remove/remaining.css': 'test/fixtures/with-ie8-styles.css'
         }
       },
+      ie8_styles_no_output: {
+        options: {
+          pattern: /\.ie8/,
+          output: false,
+        },
+        files: {
+          'tmp/ie8_styles_no_output/remaining.css': 'test/fixtures/with-ie8-styles.css'
+        }
+      },
       media_queries_all: {
         options: {
           output: 'tmp/media_queries_all/extracted.css',
@@ -117,6 +126,18 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/without_media_parent/remaining.css': 'test/fixtures/media-queries.css'
+        }
+      },
+      with_media_parent_no_parent: {
+        options: {
+          output: 'tmp/with_media_parent_no_parent/extracted.css',
+          pattern: {
+            match: /\.a-class/,
+            matchParent: true
+          }
+        },
+        files: {
+          'tmp/with_media_parent_no_parent/remaining.css': 'test/fixtures/media-queries-and-styles.css'
         }
       },
     },

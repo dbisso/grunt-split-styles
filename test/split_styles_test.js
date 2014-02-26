@@ -72,6 +72,18 @@ exports.split_styles = {
 
     test.done();
   },
+  ie8_styles_no_output: function(test) {
+    test.expect(2);
+
+    var actualRemaining = grunt.file.read('tmp/ie8_styles_no_output/remaining.css').trim();
+    var expectedRemaining = grunt.file.read('test/expected/without-ie8-styles.css').trim();
+
+    test.equal(false, grunt.file.exists('tmp/ie8_styles_no_output/extracted.css'), 'should not create an output file.');
+    test.equal(actualRemaining, expectedRemaining, 'should remove styles starting with .ie8.');
+
+
+    test.done();
+  },
   media_queries_all: function(test) {
     test.expect(2);
 
@@ -141,6 +153,16 @@ exports.split_styles = {
     var expectedExtracted = grunt.file.read('test/expected/class-without-media-parent.css').trim();
 
     test.equal(actualExtracted, expectedExtracted, 'should extract the class and its parent media node.');
+
+    test.done();
+  },
+  with_media_parent_no_parent: function(test) {
+    test.expect(1);
+
+    var actualExtracted = grunt.file.read('tmp/with_media_parent_no_parent/extracted.css').trim();
+    var expectedExtracted = grunt.file.read('test/expected/class-with-and-without-media-parent.css').trim();
+
+    test.equal(actualExtracted, expectedExtracted, 'should extract the class and its parent media node or just the class if not parent is present.');
 
     test.done();
   }
