@@ -1,7 +1,7 @@
 {
   "name": "grunt-split-styles",
   "description": "Split a CSS file based on selectors. Useful for old IE stylesheets",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/dbisso/grunt-split-style",
   "author": {
     "name": "Dan Bissonnet",
